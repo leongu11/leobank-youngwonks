@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+    body {
+        background-image: url('/static/images/funnie.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    
+    h1 {
+        padding: 25px;
+        padding-top: 350px;
+        font-size: 30px;
+    }
+    
+    .funcs {
+        display: flex;
+        justify-content: center;
+        gap: 20px; /* Separates the two main links */
+        margin-bottom: 20px;
+    }
+    
+    .funcs > a {
+        text-decoration: none;
+        background-color: #0d6efd; /* Bootstrap primary blue */
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: bold;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+    
+    .funcs > a:hover {
+        background-color: #0b5ed7;
+        transform: translateY(-2px); /* Slight lift effect */
+    }
+    
+    .interestingcontainer {
+        outline: 3px solid red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+    
+    h2 {
+        padding-bottom: 150px;
+    }
+    
+    /* Modal Dialog Buttons */
+    dialog .form-control {
+        resize: none; /* Prevents manual textarea resizing */
+    }
+    
+    dialog button {
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+    
+    dialog button[type="submit"] {
+        background-color: #198754; /* Green for confirm */
+        color: white;
+    }
+    
+    dialog button[type="submit"]:hover {
+        background-color: #157347;
+    }
+    
+    dialog button.close {
+        background-color: #dc3545; /* Red for cancel */
+        color: white;
+    }
+    
+    dialog button.close:hover {
+        background-color: #bb2d3b;
+    }
+    
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+
+
+    {% with messages = get_flashed_messages(category_filter=["alert"]) %}
+        {% if messages %}
+            {% for message in messages %}
+                <div id = "alerted" class = "alert alert-primary alert-dismissible fade show" role="alert">
+                    {{message}}
+                </div>
+                <script>
+                    setTimeout(() => {
+                    const alert = document.getElementById('alerted');
+                    alert.style.display = 'none'; // Completely removes it from layout
+                    }, 3000);
+                </script>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class = "funcs">
+        <a href = "javascript:void(0)"  onclick="document.getElementById('myDialog').showModal()">withdrawl</a>    
+                <dialog id="myDialog">
+                    <h2>how much fool</h2>
+                    <form method = "POST">
+                    <label> $$$ enter ammount $$$:</label>
+                    <textarea name ='withdrawlamount' class = "form-control" rows = "1"></textarea>
+    
+                    <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+                        <button type = "submit" name = "action" value = "withdrawl" >withdraw</button>
+                        <button class = 'close' type = "button" onclick="this.closest('dialog').close()" value = "withdrawl" >close</button>
+                    </div>
+                    </form>
+                </dialog>
+
+        <a href = "javascript:void(0)"  onclick="document.getElementById('myDialog2').showModal()">deposit</a>    
+                <dialog id="myDialog2">
+                    <h2>how much fool</h2>
+                    <form method = "POST">
+                    <label> $$$ enter ammount $$$:</label>
+                    <textarea name ='depositamount' class = "form-control" rows = "1"></textarea>
+    
+                    <div style="display: flex; justify-content: space-between; margin-top: 15px;">
+                        <button type = "submit" name = "action" value = "deposit" >deposit</button>
+                        <button class = 'close' type = "button" onclick="this.closest('dialog').close()" value = "deposit" >close</button>
+                    </div>
+                    </form>
+                </dialog>
+    </div>
+    <h1>Welcome, {{session['user']}}, to your big bank account</h1>
+    <div class = "interestingcontainer">
+        <h2>Your Balance: {{session['balance']}}</h2>
+        <a href = "/logout">log out of session</a>
+    </div>
+
+    <div class="bank-logs-container" style="margin: 20px; padding: 15px; border: 1px solid #ccc; background: #f9f9f9;">
+        {% with messages = get_flashed_messages(category_filter=["log"]) %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div id = "alerted" class = "alert alert-primary" role="alert">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

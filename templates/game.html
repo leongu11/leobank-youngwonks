@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            display: grid;
+            min-height: 80vh;
+            background-image: url('/static/images/bro2.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            place-items: center;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <form method = "POST">
+        {% for word in jumbledwordslist %}
+        <div>
+            <label style = "color:blue">{{word['word']}}</label>
+            <input type = "text" name = "{{ word['_id']|string }}" ></input>
+        </div>
+        {% endfor %}
+        <div>
+            <button type = "submit" onclick = >submit</button>
+            <a href = "/">back</a>
+        </div>
+    </form>
+</body>
+</html>
